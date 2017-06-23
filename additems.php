@@ -1,5 +1,9 @@
 <?php
 
+	function get_title() {
+		echo "Add new items";
+	}
+
 session_start();
 
 require_once 'connection.php';
@@ -13,11 +17,20 @@ require_once 'connection.php';
 		$image = $_POST['image'];
 		$sql = "INSERT INTO earphones (name,price,description,category,images) VALUES ('$name','$price','$description','$category','$image')";
 
-		echo "Item added successfuly.";
+		// echo "Item added successfuly.";
 
 		$result = mysqli_query($connect,$sql);
 
+		if ($result)
+			header('location: content.php');
+
 }
+
+		if (isset($_POST['cancel'])) {
+			header('location: content.php');
+		}
+
+
 	    if (isset($_POST['show_item'])) {
 	    	$sql = "SELECT * FROM earphones";
 	    	$show = mysqli_query($connect,$sql);
@@ -39,17 +52,18 @@ require_once 'connection.php';
 <html>
 <head>
 	<title></title>
-</head>
 
-<meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- Latest compiled and minified CSS -->
+    <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+
 
 <body>
 
@@ -76,6 +90,9 @@ require_once 'connection.php';
 						<input class="btn btn-success" class="btn btn-default" type="submit" name="add_item" value="Add Item">
 					</div>
 					<div class="form-group">
+						<input class="btn btn-danger" class="btn btn-default" type="submit" name="cancel" value="Cancel">
+					</div>
+					<div class="form-group">
 						<input class="btn btn-success" class="btn btn-default" type="submit" name="show_item" value="Show Item">
 					</div>	
 			</fieldset>
@@ -86,6 +103,7 @@ require_once 'connection.php';
 
 
 	<script src="jquery-3.2.1.min.js"></script>
+
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 

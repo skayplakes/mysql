@@ -15,8 +15,7 @@ session_start();
 				$_SESSION['username'] = $username;
 				$_SESSION['role'] = $role;
 
-				echo "login Successful";
-				// header('location:index.php');
+				header('location: content.php');
 			}
 		}
 	}
